@@ -42,16 +42,17 @@ namespace WordpressAutomation
         {
             Driver.Instance.FindElement(By.Id("navbar-login-link")).Click();
             var wait = new WebDriverWait(Driver.Instance, TimeSpan.FromSeconds(10));
-            wait.Until(d => d.SwitchTo().ActiveElement().GetAttribute("id") == "user_login");
+            wait.Until(d => d.SwitchTo().ActiveElement().GetAttribute("id") == "usernameOrEmail");
 
-            var loginInput = Driver.Instance.FindElement(By.Id("user_login"));
+            var loginInput = Driver.Instance.FindElement(By.Id("usernameOrEmail"));
             loginInput.SendKeys(userName);
 
-            var passwordInput = Driver.Instance.FindElement(By.Id("user_pass"));
+            var passwordInput = Driver.Instance.FindElement(By.Id("password"));
             passwordInput.SendKeys(password);
 
-            var loginButton = Driver.Instance.FindElement(By.Id("wp-submit"));
+            var loginButton = Driver.Instance.FindElement(By.XPath(".//*[@id='primary']//button"));
             loginButton.Click();
+            Driver.Instance.Manage().Timeouts().PageLoad = TimeSpan.FromSeconds(5);
         }
     }
 }
